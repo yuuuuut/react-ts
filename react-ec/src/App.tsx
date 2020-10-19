@@ -1,12 +1,12 @@
 import React from 'react';
-import SignUp from './templates/SignUp';
+import Router from './Router';
 import "./assets/reset.css"
 import "./assets/style.css"
 
 const App = () => {
     return (
         <main>
-            <SignUp />
+            <Router />
         </main>
     )
 }

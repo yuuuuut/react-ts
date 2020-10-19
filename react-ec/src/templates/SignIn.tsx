@@ -2,19 +2,13 @@ import React, {useState, useCallback} from 'react'
 import { useDispatch } from 'react-redux'
 
 import { TextInput, PrimaryButton } from '../components/UIkit'
-import {signUp} from '../reducks/users/operations'
+import {signIn} from '../reducks/users/operations'
 
-const SignUp: React.FC = () => {
+const SignIn: React.FC = () => {
     const dispatch = useDispatch()
 
-    const [username, setUsername] = useState<string>("")
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
-    const [confirmPassword, setConfirmPassword] = useState<string>("")
-
-    const inputUsername = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
-        setUsername(event.target.value)
-    }, [setUsername])
 
     const inputEmail = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
         setEmail(event.target.value)
@@ -24,26 +18,12 @@ const SignUp: React.FC = () => {
         setPassword(event.target.value)
     }, [setPassword])
 
-    const inputConfirmPassword = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
-        setConfirmPassword(event.target.value)
-    }, [setConfirmPassword])
-
     return (
         <div className="c-section-container">
             <h2 className="u-text__headline u-text-center">
-                アカウント登録
+                ログイン
             </h2>
             <div className="module-spacer--medium" />
-            <TextInput
-                fullWidth={true}
-                label={"ユーザー名"}
-                multiline={false}
-                required={true}
-                rows={1}
-                value={username}
-                type={"text"}
-                onChange={inputUsername}
-            />
             <TextInput
                 fullWidth={true}
                 label={"メールアドレス"}
@@ -64,25 +44,15 @@ const SignUp: React.FC = () => {
                 type={"password"}
                 onChange={inputPassword}
             />
-            <TextInput
-                fullWidth={true}
-                label={"パスワード(確認)"}
-                multiline={false}
-                required={true}
-                rows={1}
-                value={confirmPassword}
-                type={"password"}
-                onChange={inputConfirmPassword}
-            />
             <div className="module-spacer--medium" />
             <div className="center">
                 <PrimaryButton
-                    label={"アカウントを登録する"}
-                    onClick={() => dispatch(signUp(username, email, password, confirmPassword))}
+                    label={"ログイン"}
+                    onClick={() => dispatch(signIn(email, password))}
                 />
             </div>
         </div>
     )
 }
 
-export default SignUp
+export default SignIn
