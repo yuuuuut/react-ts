@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { TextInput, PrimaryButton } from '../components/UIkit'
 import {signIn} from '../reducks/users/operations'
 
-const SignIn: React.FC = () => {
+const SignIn = () => {
     const dispatch = useDispatch()
 
     const [email, setEmail] = useState<string>("")

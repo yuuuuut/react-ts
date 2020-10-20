@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { TextInput, PrimaryButton } from '../components/UIkit'
 import {resetPassword} from '../reducks/users/operations'
 
-const Reset: React.FC = () => {
+const Reset = () => {
     const dispatch = useDispatch()
 
     const [email, setEmail] = useState<string>("")
