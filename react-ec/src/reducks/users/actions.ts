@@ -12,3 +12,15 @@ export const signInAction = (userState: UserState['payload']): UserState => {
         }
     }
 }
+
+export const signOutAction = () => {
+    return {
+        type: ActionTypes.signOut,
+        payload: {
+            isSignedIn: true,
+            role: "",
+            uid: "",
+            username: ""
+        }
+    }
+}
