@@ -1,5 +1,6 @@
 import { auth, db, FirebaseTimestamp } from "../../firebase/index"
 import { push } from "connected-react-router"
+import { Images } from '../../components/products/ImageArea'
 
 const productsRef = db.collection('products')
 
@@ -7,7 +8,8 @@ export const saveProduct = (name: string,
                             description: string,
                             gender: string,
                             category: string,
-                            price: string
+                            price: string,
+                            images: Array<Images>
                             ) => {
     return async (dispatch: Function) => {
         const timestamp = FirebaseTimestamp.now()
@@ -17,6 +19,7 @@ export const saveProduct = (name: string,
             category: category,
             description: description,
             gender: gender,
+            images: images,
             name: name,
             price: parseInt(price, 10),
             created_at: timestamp,
