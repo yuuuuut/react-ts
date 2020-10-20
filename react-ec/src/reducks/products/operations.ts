@@ -1,10 +1,11 @@
 import { auth, db, FirebaseTimestamp } from "../../firebase/index"
 import { push } from "connected-react-router"
-import { Images } from '../../components/products/ImageArea'
+import { ProductTypes, Images } from './types'
 
 const productsRef = db.collection('products')
 
-export const saveProduct = (name: string,
+export const saveProduct = (id: string,
+                            name: string,
                             description: string,
                             gender: string,
                             category: string,
@@ -14,7 +15,7 @@ export const saveProduct = (name: string,
     return async (dispatch: Function) => {
         const timestamp = FirebaseTimestamp.now()
 
-        const data = {
+        const data: ProductTypes = {
             id: "",
             category: category,
             description: description,
@@ -22,16 +23,17 @@ export const saveProduct = (name: string,
             images: images,
             name: name,
             price: parseInt(price, 10),
-            created_at: timestamp,
             updated_at: timestamp
         }
 
-        const ref = productsRef.doc()
-        const id  = ref.id
-        data.id = id
-        data.created_at = timestamp
+        if (id === "") {
+            const ref = productsRef.doc()
+            const id  = ref.id
+            data.id = id
+            data.created_at = timestamp
+        }
 
-        return productsRef.doc(id).set(data)
+        return productsRef.doc(id).set(data, {merge: true})
             .then(() => {
                 dispatch(push('/'))
             }).catch((e) => {

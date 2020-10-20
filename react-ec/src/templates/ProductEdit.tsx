@@ -1,11 +1,19 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import { useDispatch } from 'react-redux'
-import ImageArea, { Images } from '../components/products/ImageArea'
+import ImageArea from '../components/products/ImageArea'
 import { TextInput, SelectBox, PrimaryButton } from '../components/UIkit'
+import { db } from '../firebase'
 import { saveProduct } from '../reducks/products/operations'
+import { Images } from '../reducks/products/types'
 
 const ProductEdit = () => {
     const dispatch = useDispatch()
+
+    let id = window.location.pathname.split('/product/edit')[1]
+
+    if (id !== "") {
+        id = id.split('/')[1]
+    }
 
     const [name, setName] = useState<string>("")
     const [description, setDescription] = useState<string>("")
@@ -36,6 +44,24 @@ const ProductEdit = () => {
         {id: "male" ,name: "男性"},
         {id: "female" ,name: "女性"},
     ]
+
+    useEffect(() => {
+        if (id !== "") {
+            db.collection('products').doc(id).get()
+                .then(snapshot => {
+                    const data = snapshot.data()
+
+                    if (data) {
+                        setName(data.name)
+                        setImages(data.images)
+                        setGender(data.gender)
+                        setCategory(data.category)
+                        setPrice(data.price)
+                        setDescription(data.description)
+                    }
+                })
+        }
+    }, [id])
 
     return (
         <section>
@@ -92,7 +118,7 @@ const ProductEdit = () => {
                 <div className="center">
                     <PrimaryButton
                         label={"保存"}
-                        onClick={() => dispatch(saveProduct(name, description, category, gender, price, images))}
+                        onClick={() => dispatch(saveProduct(id, name, description, category, gender, price, images))}
                     />
                 </div>
             </div>

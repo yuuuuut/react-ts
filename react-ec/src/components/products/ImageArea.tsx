@@ -4,11 +4,7 @@ import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate"
 import IconButton from "@material-ui/core/IconButton"
 import { storage } from '../../firebase/index'
 import ImagePreview from './ImagePreview'
-
-export interface Images {
-    id: string
-    path: string
-}
+import { Images } from '../../reducks/products/types'
 
 type ImageAreaProps = {
     images: Array<Images>
