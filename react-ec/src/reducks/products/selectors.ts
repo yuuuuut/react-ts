@@ -1,20 +1,15 @@
-import { createSelector } from "reselect"
+import { createSelector }  from "reselect"
+import { ProductTypes }    from "./types"
 
-type SelectorState = {
-    users: {
-        uid: string
-        isSignedIn: boolean 
+export type SelectorState = {
+    products: {
+        list: Array<ProductTypes>
     }
 }
 
-const usersSelector = (state: SelectorState) => state.users
+const productsSelector = (state: SelectorState) => state.products
 
-export const getIsSignedIn = createSelector(
-    [usersSelector],
-    state => state.isSignedIn
-)
-
-export const getUserId = createSelector(
-    [usersSelector],
-    state => state.uid
+export const getProducts = createSelector(
+    [productsSelector],
+    state => state.list
 )

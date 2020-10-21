@@ -1,3 +1,8 @@
+export interface ProductState {
+    type?: string,
+    payload: Array<ProductTypes>
+}
+
 export interface Images {
     id: string
     path: string
@@ -19,4 +24,8 @@ export type ProductTypes = {
     price: number
     created_at?: any
     updated_at: any
+}
+
+export type ProductsArray = {
+    products: Array<ProductTypes>
 }

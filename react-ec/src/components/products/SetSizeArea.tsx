@@ -100,13 +100,13 @@ const SetSizeArea = (props: SetSizeAreaProps) => {
                                     <TableCell>{item.size}</TableCell>
                                     <TableCell>{item.quantity}</TableCell>
                                     <TableCell>
-                                        <IconButton>
-                                            <EditIcon onClick={() => editSize(index, item.size, item.quantity)} />
+                                        <IconButton onClick={() => editSize(index, item.size, item.quantity)} >
+                                            <EditIcon />
                                         </IconButton>
                                     </TableCell>
                                     <TableCell>
-                                        <IconButton>
-                                            <DeleteIcon onClick={() => deleteSize(index)} />
+                                        <IconButton onClick={() => deleteSize(index)}>
+                                            <DeleteIcon />
                                         </IconButton>
                                     </TableCell>
                                 </TableRow>
