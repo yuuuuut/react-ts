@@ -1,10 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react'
+
+import { db }          from '../firebase'
 import { useDispatch } from 'react-redux'
-import ImageArea from '../components/products/ImageArea'
-import { TextInput, SelectBox, PrimaryButton } from '../components/UIkit'
-import { db } from '../firebase'
+import { SetSizeArea } from '../components/products'
+import ImageArea       from '../components/products/ImageArea'
 import { saveProduct } from '../reducks/products/operations'
-import { Images } from '../reducks/products/types'
+import { Images }      from '../reducks/products/types'
+import { TextInput, SelectBox, PrimaryButton } from '../components/UIkit'
 
 const ProductEdit = () => {
     const dispatch = useDispatch()
@@ -19,8 +21,9 @@ const ProductEdit = () => {
     const [description, setDescription] = useState<string>("")
     const [category, setCategory] = useState<string>("")
     const [gender, setGender] = useState<string>("")
-    const [price, setPrice] = useState<string>("")
+    const [price, setPrice]   = useState<string>("")
     const [images, setImages] = useState<Array<Images>>([])
+    const [sizes, setSizes]   = useState<[]>([])
 
     const inputName = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
         setName(event.target.value)
@@ -58,6 +61,7 @@ const ProductEdit = () => {
                         setCategory(data.category)
                         setPrice(data.price)
                         setDescription(data.description)
+                        setSizes(data.sizes)
                     }
                 })
         }
@@ -115,10 +119,12 @@ const ProductEdit = () => {
                     type={"number"}
                 />
                 <div className="module-spacer--medium" />
+                <SetSizeArea sizes={sizes} setSizes={setSizes} />
+                <div className="module-spacer--medium" />
                 <div className="center">
                     <PrimaryButton
                         label={"保存"}
-                        onClick={() => dispatch(saveProduct(id, name, description, category, gender, price, images))}
+                        onClick={() => dispatch(saveProduct(id, name, description, category, gender, price, images, sizes))}
                     />
                 </div>
             </div>

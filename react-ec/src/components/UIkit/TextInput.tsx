@@ -8,12 +8,12 @@ type TextInputProps = {
     multiline: boolean
     required: boolean
     rows: number
-    value: string
+    value: string | number
     type: string
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const TextInput: React.FC<TextInputProps> = (props) => {
+const TextInput = (props: TextInputProps) => {
     return (
         <>
             <TextField
