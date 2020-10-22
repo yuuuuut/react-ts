@@ -11,7 +11,7 @@ type RootState = {
     router: RouterState
 }
 
-type dataProps = firebase.firestore.DocumentData | undefined | null
+type dataType = firebase.firestore.DocumentData | undefined | null
 
 const useStyles = makeStyles((theme) => ({
     sliderBox: {
@@ -58,7 +58,7 @@ const ProductDetail = () => {
     const path = selector.router.location.pathname
     const id   = path.split('/product/')[1]
 
-    const [product, setProduct] = useState<dataProps>(null)
+    const [product, setProduct] = useState<dataType>(null)
 
     useEffect(() => {
         db.collection('products').doc(id).get()

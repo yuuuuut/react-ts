@@ -8,6 +8,11 @@ import { saveProduct } from '../reducks/products/operations'
 import { Images }      from '../reducks/products/types'
 import { TextInput, SelectBox, PrimaryButton } from '../components/UIkit'
 
+type SizeType = {
+    size: string
+    quantity: number
+}
+
 const ProductEdit = () => {
     const dispatch = useDispatch()
 
@@ -23,7 +28,7 @@ const ProductEdit = () => {
     const [gender, setGender] = useState<string>("")
     const [price, setPrice]   = useState<string>("")
     const [images, setImages] = useState<Array<Images>>([])
-    const [sizes, setSizes]   = useState<[]>([])
+    const [sizes, setSizes]   = useState<Array<SizeType>>([])
 
     const inputName = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
         setName(event.target.value)

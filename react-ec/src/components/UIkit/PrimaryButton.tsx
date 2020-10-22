@@ -1,11 +1,11 @@
 import React from 'react'
 
-import Button from '@material-ui/core/Button'
+import Button       from '@material-ui/core/Button'
 import {makeStyles} from '@material-ui/styles'
 
 type PrimaryButtonProps = {
     label: string
-    onClick: any
+    onClick: Function
 }
 
 const useStyles = makeStyles({
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     }
 })
 
-const PrimaryButton: React.FC<PrimaryButtonProps> = (props) => {
+const PrimaryButton = (props: PrimaryButtonProps) => {
     const classes = useStyles()
 
     return (

@@ -1,8 +1,8 @@
-import { push } from 'connected-react-router'
 import React, {useState, useCallback} from 'react'
-import { useDispatch } from 'react-redux'
 
 import { TextInput, PrimaryButton } from '../components/UIkit'
+import { useDispatch } from 'react-redux'
+import { push } from 'connected-react-router'
 import {signIn} from '../reducks/users/operations'
 
 const SignIn = () => {

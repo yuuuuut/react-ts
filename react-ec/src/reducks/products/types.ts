@@ -25,7 +25,3 @@ export type ProductTypes = {
     created_at?: any
     updated_at: any
 }
-
-export type ProductsArray = {
-    products: Array<ProductTypes>
-}

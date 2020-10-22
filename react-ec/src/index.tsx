@@ -1,13 +1,13 @@
 import React from 'react';
+
 import ReactDOM from 'react-dom';
-
-import createStore from './reducks/store/store'
-import {Provider}  from 'react-redux'
-import { ConnectedRouter } from 'connected-react-router';
-import * as History from 'history';
-
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+
+import { ConnectedRouter } from 'connected-react-router';
+import * as serviceWorker  from './serviceWorker';
+import createStore  from './reducks/store/store'
+import {Provider}   from 'react-redux'
+import * as History from 'history';
 
 const history = History.createBrowserHistory()
 export const store = createStore(history)

@@ -1,5 +1,5 @@
 import { ActionTypes } from '../store/actionTypes'
-import { UserState } from './types'
+import { UserState }   from './types'
 
 export const signInAction = (userState: UserState['payload']): UserState => {
     return {

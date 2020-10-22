@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react'
 
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate"
-import IconButton from "@material-ui/core/IconButton"
-import { storage } from '../../firebase/index'
+import IconButton   from "@material-ui/core/IconButton"
+import { storage }  from '../../firebase/index'
 import ImagePreview from './ImagePreview'
-import { Images } from '../../reducks/products/types'
+import { Images }   from '../../reducks/products/types'
 
 type ImageAreaProps = {
     images: Array<Images>
@@ -27,7 +27,6 @@ const ImageArea = (props: ImageAreaProps) => {
         const uploadTask = uploadRef.put(blob);
 
         uploadTask.then(() => {
-            // Handle successful uploads on complete
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL: string) => {
                 const newImage = {id: fileName, path: downloadURL};
                 props.setImages(((prevState: Array<Images>) => [...prevState, newImage]))

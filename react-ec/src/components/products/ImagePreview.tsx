@@ -6,7 +6,7 @@ type ImagePreviewProps = {
     delete: (id: string) => void;
 };
 
-const ImagePreview: React.FC<ImagePreviewProps> = (props) => {
+const ImagePreview = (props: ImagePreviewProps) => {
     return (
         <div className="p-media__thumb" onClick={() => props.delete(props.id)}>
             <img src={props.path} />

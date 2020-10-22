@@ -4,7 +4,7 @@ import {
     applyMiddleware
 } from "redux"
 import {connectRouter, routerMiddleware} from "connected-react-router"
-import thunk from 'redux-thunk'
+import thunk  from 'redux-thunk'
 import * as H from 'history'
 
 import {UsersReducer}    from "../users/reducers"
