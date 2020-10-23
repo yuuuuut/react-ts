@@ -6,7 +6,11 @@ import ShoppingCartIcon   from '@material-ui/icons/ShoppingCart'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import MenuIcon           from '@material-ui/icons/Menu'
 
-const HeaderMenus = () => {
+type HeaderMenusProps = {
+    handleDrawerToggle: (event: any) => void
+}
+
+const HeaderMenus = (props: HeaderMenusProps) => {
     return (
         <>
             <IconButton>
@@ -17,7 +21,7 @@ const HeaderMenus = () => {
             <IconButton>
                 <FavoriteBorderIcon />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={(event) => props.handleDrawerToggle(event)}>
                 <MenuIcon />
             </IconButton>
         </>
