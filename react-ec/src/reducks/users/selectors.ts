@@ -1,7 +1,7 @@
-import { createSelector } from "reselect"
-import { AuthUsersType }  from '../../Auth'
+import { createSelector }   from "reselect"
+import { initialStateType } from '../store/initialState'
 
-const usersSelector = (state: AuthUsersType) => state.users
+const usersSelector = (state: initialStateType) => state.users
 
 export const getIsSignedIn = createSelector(
     [usersSelector],
@@ -11,4 +11,9 @@ export const getIsSignedIn = createSelector(
 export const getUserId = createSelector(
     [usersSelector],
     state => state.uid
+)
+
+export const getProductsInCart = createSelector(
+    [usersSelector],
+    state => state.cart
 )

@@ -22,6 +22,19 @@ export type ProductTypes = {
     sizes: Array<SizeArrayType>
     name: string
     price: number
-    created_at?: any
-    updated_at: any
+    created_at?: firebase.firestore.Timestamp
+    updated_at: firebase.firestore.Timestamp
+}
+
+export type ProductCartType = {
+    added_at?: firebase.firestore.Timestamp,
+    description: string
+    gender: string
+    images: Array<Images>
+    name: string
+    price: string
+    productId: string
+    quantity: number
+    size: string
+    cartId?: string
 }

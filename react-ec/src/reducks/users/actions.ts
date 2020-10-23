@@ -1,5 +1,13 @@
+import { ProductCartType } from '../products/types'
 import { ActionTypes } from '../store/actionTypes'
 import { UserState }   from './types'
+
+export const fetchProductsInCartAction = (products: Array<ProductCartType>) => {
+    return {
+        type: ActionTypes.fetchProductsInCart,
+        payload: products
+    }
+}
 
 export const signInAction = (userState: UserState['payload']): UserState => {
     return {

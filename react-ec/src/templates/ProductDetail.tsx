@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useCallback, useEffect, useState } from 'react'
 
-import { ImageSwiper, SizeTable } from '../components/products'
-import { RouterState } from 'connected-react-router'
-import { useSelector } from 'react-redux'
+import { db, FirebaseTimestamp }    from '../firebase'
+import { addProductToCart }         from '../reducks/users/operations'
+import { ImageSwiper, SizeTable }   from '../components/products'
+import { RouterState }              from 'connected-react-router'
+import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles }  from '@material-ui/core'
 import HTMLReactParser from 'html-react-parser'
-import { db } from '../firebase'
 
 type RootState = {
     router: RouterState
@@ -54,11 +56,30 @@ const returnCodeToBr = (text: string) => {
 const ProductDetail = () => {
     const classes  = useStyles()
     const selector = useSelector((state: RootState) => state)
+    const dispatch = useDispatch()
 
     const path = selector.router.location.pathname
     const id   = path.split('/product/')[1]
 
     const [product, setProduct] = useState<dataType>(null)
+
+    const addProduct = useCallback((selectedSize: string) => {
+        const timestamp = FirebaseTimestamp.now()
+
+        if (product) {
+            dispatch(addProductToCart({
+                added_at: timestamp,
+                description: product.description,
+                gender: product.gender,
+                images: product.images,
+                name: product.name,
+                price: product.price,
+                productId: product.id,
+                quantity: 1,
+                size: selectedSize
+            }))
+        }
+    }, [product])
 
     useEffect(() => {
         db.collection('products').doc(id).get()
@@ -82,7 +103,7 @@ const ProductDetail = () => {
                         <p className={classes.price}>
                             {product.price.toLocaleString()}
                         </p>
-                        <SizeTable sizes={product.sizes} />
+                        <SizeTable addProduct={addProduct} sizes={product.sizes} />
                         <p>
                             {returnCodeToBr(product.description)}
                         </p>

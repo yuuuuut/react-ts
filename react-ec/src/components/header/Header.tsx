@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react'
 
 import { useDispatch, useSelector }   from 'react-redux';
 import { getIsSignedIn } from '../../reducks/users/selectors';
-import { AuthUsersType } from '../../Auth';
 import { push }          from 'connected-react-router';
 import HeaderMenus    from './HeaderMenus';
 import ClosableDrawer from './ClosableDrawer';
@@ -10,6 +9,7 @@ import ClosableDrawer from './ClosableDrawer';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar  from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import { initialStateType } from '../../reducks/store/initialState';
 
 const useStyles = makeStyles({
     root: {
@@ -33,7 +33,7 @@ const Header = () => {
     const classes = useStyles()
 
     const dispatch   = useDispatch()
-    const selector   = useSelector((state: AuthUsersType) => state)
+    const selector   = useSelector((state: initialStateType) => state)
     const isSignedIn = getIsSignedIn(selector)
 
     const [open, setOpen] = useState<boolean>(false)

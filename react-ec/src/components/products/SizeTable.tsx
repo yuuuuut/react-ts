@@ -13,6 +13,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder"
 
 type SizeTableProps = {
     sizes: Array<SizeArrayType>
+    addProduct: (size: string) => void
 }
 
 const SizeTable = (props: SizeTableProps) => {
@@ -21,7 +22,7 @@ const SizeTable = (props: SizeTableProps) => {
             <Table>
                 <TableBody>
                     {props.sizes.length > 0 && (
-                        props.sizes.map(size => (
+                        props.sizes.map((size: SizeArrayType) => (
                             <TableRow key={size.size}>
                                 <TableCell component="th" scope="row">
                                     {size.size}
@@ -31,7 +32,7 @@ const SizeTable = (props: SizeTableProps) => {
                                 </TableCell>
                                 <TableCell>
                                     {size.quantity > 0 ? (
-                                        <IconButton>
+                                        <IconButton onClick={() => props.addProduct(size.size)}>
                                             <ShoppingCartIcon />
                                         </IconButton>
                                     ) : (

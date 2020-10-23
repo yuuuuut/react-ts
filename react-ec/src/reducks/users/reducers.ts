@@ -1,9 +1,14 @@
 import { ActionTypes }  from "../store/actionTypes";
 import { initialState } from "../store/initialState"
-import { UserState }    from "./types";
 
-export const UsersReducer = (state = initialState.users, action: UserState) => {
+//型定義の敗北
+export const UsersReducer = (state = initialState.users, action: any) => {
     switch (action.type) {
+        case ActionTypes.fetchProductsInCart:
+            return {
+                ...state,
+                cart: [...action.payload]
+            }
         case ActionTypes.signIn:
             return {
                 ...state,

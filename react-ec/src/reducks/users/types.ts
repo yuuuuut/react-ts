@@ -1,4 +1,4 @@
-export interface UserState {
+export type UserState = {
     type?: string,
     payload: {
         isSignedIn: boolean
