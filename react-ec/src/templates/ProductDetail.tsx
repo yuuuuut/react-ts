@@ -76,7 +76,8 @@ const ProductDetail = () => {
                 price: product.price,
                 productId: product.id,
                 quantity: 1,
-                size: selectedSize
+                size: selectedSize,
+                cartId: ""
             }))
         }
     }, [product])

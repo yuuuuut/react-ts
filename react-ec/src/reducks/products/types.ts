@@ -1,8 +1,3 @@
-export interface ProductState {
-    type?: string,
-    payload: Array<ProductTypes>
-}
-
 export interface Images {
     id: string
     path: string
@@ -36,5 +31,5 @@ export type ProductCartType = {
     productId: string
     quantity: number
     size: string
-    cartId?: string
+    cartId: string
 }

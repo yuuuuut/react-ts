@@ -1,8 +1,7 @@
 import { ActionTypes }  from "../store/actionTypes";
 import { initialState } from "../store/initialState"
-import { ProductState } from "./types";
 
-export const ProductsReducer = (state = initialState.products, action: ProductState) => {
+export const ProductsReducer = (state = initialState.products, action: any) => {
     switch (action.type) {
         case ActionTypes.fetchProducts:
             return {
