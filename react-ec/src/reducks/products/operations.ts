@@ -1,6 +1,7 @@
 import { deleteProductsAction, fetchProductsAction } from './actions'
 import { ProductTypes, Images, SizeArrayType, ProductCartType } from './types'
 import { db, FirebaseTimestamp } from "../../firebase/index"
+import { initialStateType }      from '../store/initialState'
 import { push } from "connected-react-router"
 
 type SnapShptType = firebase.firestore.DocumentData
@@ -31,7 +32,7 @@ export const fetchProducts = () => {
 }
 
 export const deleteProduct = (id: string) => {
-    return async (dispatch: Function, getState: Function) => {
+    return async (dispatch: Function, getState: () => initialStateType) => {
         productsRef.doc(id).delete()
             .then(() => {
                 const prevProducts: Array<ProductTypes> = getState().products.list
@@ -82,13 +83,13 @@ export const saveProduct = (id: string,
 }
 
 export const orderProduct = (productsInCart: Array<ProductCartType>, amount: number) => {
-    return async (dispatch: Function, getState: Function) => {
+    return async (dispatch: Function, getState: () => initialStateType) => {
 
         const uid = getState().users.uid
         const userRef   = db.collection('users').doc(uid)
         const timestamp = FirebaseTimestamp.now()
 
-        let products: Array<ProductType >  = [],
+        let products: Array<ProductType>   = [],
             soldOutProducts: Array<string> = []
 
         const batch = db.batch()

@@ -15,6 +15,7 @@ export type ProductTypes = {
     gender: string
     images: Array<Images>
     sizes: Array<SizeArrayType>
+    size?: string
     name: string
     price: number
     created_at?: firebase.firestore.Timestamp

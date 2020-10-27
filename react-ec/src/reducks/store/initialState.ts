@@ -1,4 +1,5 @@
 import { ProductCartType, ProductTypes } from "../products/types";
+import { OrderHistoryType } from "../users/types";
 
 export type initialStateType = {
     products: {
@@ -6,6 +7,7 @@ export type initialStateType = {
     },
     users: {
         cart: Array<ProductCartType>
+        orders: Array<OrderHistoryType>
         isSignedIn: boolean
         role: string
         uid: string
@@ -19,6 +21,7 @@ export const initialState: initialStateType = {
     },
     users: {
         cart: [],
+        orders: [],
         isSignedIn: false,
         role: "",
         uid: "",

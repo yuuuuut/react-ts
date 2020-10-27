@@ -1,10 +1,17 @@
 import { ProductCartType } from '../products/types'
 import { ActionTypes } from '../store/actionTypes'
-import { UserState }   from './types'
+import { OrderHistoryType, UserState }   from './types'
 
 export const fetchProductsInCartAction = (products: Array<ProductCartType>) => {
     return {
         type: ActionTypes.fetchProductsInCart,
+        payload: products
+    }
+}
+
+export const fetchOrdersHistoryAction = (products: Array<OrderHistoryType>) => {
+    return {
+        type: ActionTypes.fetchOrdersHistory,
         payload: products
     }
 }

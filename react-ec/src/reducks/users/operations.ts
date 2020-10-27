@@ -1,6 +1,8 @@
-import { fetchProductsInCartAction, signInAction, signOutAction } from "./actions"
+import { fetchOrdersHistoryAction, fetchProductsInCartAction, signInAction, signOutAction } from "./actions"
 import { auth, db, FirebaseTimestamp } from "../../firebase/index"
-import { ProductCartType } from "../products/types"
+import { ProductCartType }  from "../products/types"
+import { initialStateType } from "../store/initialState"
+import { OrderHistoryType } from "./types"
 import { push } from "connected-react-router"
 
 export const listenAuthState = () => {
@@ -30,7 +32,7 @@ export const listenAuthState = () => {
 }
 
 export const addProductToCart = (addedProduct: ProductCartType) => {
-    return async (dispatch: Function, getState: any) => {
+    return async (dispatch: Function, getState: () => initialStateType) => {
         const uid = getState().users.uid
         const cartRef = db.collection('users').doc(uid)
                             .collection('cart').doc()
@@ -44,6 +46,26 @@ export const addProductToCart = (addedProduct: ProductCartType) => {
 export const fetchProductsInCart = (products: Array<ProductCartType>) => {
     return async (dispatch: Function) => {
         dispatch(fetchProductsInCartAction(products))
+    }
+}
+
+export const fetchOrderHistory = () => {
+    return async (dispatch: Function, getState: () => initialStateType) => {
+        const uid  = getState().users.uid
+        const list: Array<OrderHistoryType> = []
+
+        db.collection('users').doc(uid)
+            .collection('orders')
+            .orderBy('updated_at', 'desc')
+            .get()
+            .then((snapshots) => {
+                snapshots.forEach(snapshot => {
+                    const data: any = snapshot.data()
+                    list.push(data)
+                })
+
+                dispatch(fetchOrdersHistoryAction(list))
+            })
     }
 }
 

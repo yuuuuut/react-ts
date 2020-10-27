@@ -9,6 +9,11 @@ export const UsersReducer = (state = initialState.users, action: any) => {
                 ...state,
                 cart: [...action.payload]
             }
+        case ActionTypes.fetchOrdersHistory:
+            return {
+                ...state,
+                orders: [...action.payload]
+            }
         case ActionTypes.signIn:
             return {
                 ...state,
