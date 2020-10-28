@@ -1,19 +1,26 @@
 import React, { useEffect } from 'react'
 
-import { getProducts, SelectorState } from '../reducks/products/selectors'
 import { useDispatch, useSelector }   from 'react-redux'
-import { ProductCard }   from '../components/products'
-import { fetchProducts } from '../reducks/products/operations'
+import { getProducts}       from '../reducks/products/selectors'
+import { ProductCard }      from '../components/products'
+import { fetchProducts }    from '../reducks/products/operations'
+import { initialStateType } from '../reducks/store/initialState'
+import { RouterState }      from 'connected-react-router'
 
 const ProductList = () => {
-    const dispatch = useDispatch()
-    const selector = useSelector((state: SelectorState) => state)
+    const dispatch     = useDispatch()
+    const selector     = useSelector((state: initialStateType) => state)
+    const rootSelector = useSelector((state: {router: RouterState } ) => state)
+    const products     = getProducts(selector)
 
-    const products = getProducts(selector)
+    const query = rootSelector.router.location.search
+    const gender   = /^\?gender=/.test(query) ? query.split('?gender=')[1] : ""
+    const category = /^\?category=/.test(query) ? query.split('?category=')[1] : ""
 
     useEffect(() => {
-        dispatch(fetchProducts())
-    }, [])
+        dispatch(fetchProducts(gender, category))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query])
 
     return (
         <section className="c-section-wrapin">

@@ -13,6 +13,11 @@ type SizeType = {
     quantity: number
 }
 
+type CategoryType = {
+    id: string
+    name: string
+}
+
 const ProductEdit = () => {
     const dispatch = useDispatch()
 
@@ -25,6 +30,7 @@ const ProductEdit = () => {
     const [name, setName] = useState<string>("")
     const [description, setDescription] = useState<string>("")
     const [category, setCategory] = useState<string>("")
+    const [categories, setCategories] = useState<Array<CategoryType>>([])
     const [gender, setGender] = useState<string>("")
     const [price, setPrice]   = useState<string>("")
     const [images, setImages] = useState<Array<Images>>([])
@@ -41,11 +47,6 @@ const ProductEdit = () => {
     const inputPrice = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
         setPrice(event.target.value)
     }, [setPrice])
-
-    const categories = [
-        {id: "tops" ,name: "トップス"},
-        {id: "shirts" ,name: "シャツ"},
-    ]
 
     const genders = [
         {id: "all" ,name: "すべて"},
@@ -71,6 +72,24 @@ const ProductEdit = () => {
                 })
         }
     }, [id])
+
+    useEffect(() => {
+        db.collection('categories')
+            .orderBy('order', 'asc')
+            .get()
+            .then(snapshots => {
+                const list: Array<CategoryType> = []
+                snapshots.forEach(snapshot => {
+                    const data = snapshot.data() as CategoryType
+
+                    list.push({
+                        id: data.id,
+                        name: data.name
+                    })
+                })
+                setCategories(list)
+            })
+    }, [])
 
     return (
         <section>

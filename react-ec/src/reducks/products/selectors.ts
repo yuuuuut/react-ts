@@ -1,13 +1,7 @@
-import { createSelector }  from "reselect"
-import { ProductTypes }    from "./types"
+import { createSelector }   from "reselect"
+import { initialStateType } from "../store/initialState"
 
-export type SelectorState = {
-    products: {
-        list: Array<ProductTypes>
-    }
-}
-
-const productsSelector = (state: SelectorState) => state.products
+const productsSelector = (state: initialStateType) => state.products
 
 export const getProducts = createSelector(
     [productsSelector],

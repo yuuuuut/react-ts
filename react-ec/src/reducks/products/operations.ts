@@ -1,8 +1,8 @@
-import { deleteProductsAction, fetchProductsAction } from './actions'
 import { ProductTypes, Images, SizeArrayType, ProductCartType } from './types'
+import { deleteProductsAction, fetchProductsAction } from './actions'
 import { db, FirebaseTimestamp } from "../../firebase/index"
 import { initialStateType }      from '../store/initialState'
-import { push } from "connected-react-router"
+import { push }                  from "connected-react-router"
 
 type SnapShptType = firebase.firestore.DocumentData
 
@@ -16,14 +16,19 @@ type ProductType = {
 
 const productsRef = db.collection('products')
 
-export const fetchProducts = () => {
+export const fetchProducts = (gender: string, category: string) => {
     return async (dispatch: Function) => {
-        productsRef.orderBy('updated_at', 'desc').get()
+        let query = productsRef.orderBy('updated_at', 'desc')
+
+        query = (gender !== "") ? query.where('gender', '==', gender) : query
+        query = (category !== "") ? query.where('category', '==', category) : query
+
+        query.get()
             .then(snapshots => {
                 const productList: Array<ProductTypes> = []
 
                 snapshots.forEach(snapshot => {
-                    const product: any = snapshot.data()
+                    const product = snapshot.data() as ProductTypes
                     productList.push(product)
                 })
                 dispatch(fetchProductsAction(productList))
